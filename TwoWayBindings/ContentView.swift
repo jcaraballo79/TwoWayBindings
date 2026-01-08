@@ -14,6 +14,7 @@ struct ContentView: View {
     @State private var selectedColor: Color = .red
     @State private var selectedDate = Date()
     @State private var stepperValue = 1
+    @State private var sliderValue = 50.0
     
     var body: some View {
         VStack {
@@ -47,12 +48,26 @@ struct ContentView: View {
             Spacer()
             
             DatePicker("Date:", selection: $selectedDate)
-            Text(
-                "Selected date is: \(selectedDate.formatted(date: .abbreviated, time: .shortened))")
+            Text("Selected date is: \(selectedDate.formatted(date: .abbreviated, time: .shortened))")
             
             Spacer()
             
             Stepper("Stepper value: \(stepperValue)", value: $stepperValue, in: 1...10)
+            
+            Spacer()
+            
+            Slider(
+                value: $sliderValue, in: 0...100) {
+                    //Accesibility label
+                } minimumValueLabel: {
+                    Image(systemName: "speaker.minus")
+                    Text("0")
+                } maximumValueLabel: {
+                    Image(systemName: "speaker.plus")
+                    Text("100")
+                }
+            
+            Text("Slider value: \(Int(sliderValue))%")
             
             Spacer()
         }
